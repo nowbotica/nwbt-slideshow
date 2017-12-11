@@ -142,3 +142,40 @@ Notice: Undefined index: row_painters in C:\project\kab\wordpress\wp-content\plu
 autentication somethint
 
 write explaination of sql used in listing query
+
+
+<div>
+  <h2>Here we show input and output states of our directive</h2>
+
+  <p>Using php to inject a string into the directive is helpful for this use case of Angularjs. Our aim is to avoid the maintaince overhead of setting up each data node required by our widget using the brittle and complicated wp_settings api.</p>
+  
+  <p>We have already used the api as demonstrated on the <a href="https://developer.wordpress.org/plugins/settings/custom-settings-page/">relevant codex page</a> to give us a single datapoint <code>$args['label_for']</code> of which we have cRUd like control over. If possible we want to avoid adding extra boilerplate code to handle ajax, so no admin_ajax endpoint and no service layer to our microapp. We are not too worried about security at this stage since a mallious editor having access to the site admin would already have complete control over the source code</p>
+
+  <p>We use angulars '=string' as our scope datatype <code> tz-edit-slideshow slideshowdata='< ?= echo $mock; ?>'></tz-edit-slideshow</code> meaning that when the directive compiles scope.slideshowdata will be assigned the value stored in our $mock on the php side.</p>
+
+  <p>Finally we output to our config-template.html <code><h4>Data to save: {{resultblob}}</h4></code> by stringifying our local javascript object in JSON and returning this to the view. Notice in our controller function we have changed one of the options in our mock data object and we can see this change in the resultant template.</p> 
+
+
+  <pre><code>
+  TzSliderConfigApp.directive('tzEditSlideshow', ['$parse', function($parse){
+    return {
+        replace: true,
+        templateUrl: tzSliderPartialsPath+'/config-template.html',
+        scope: {
+          slideshowdata: '=slideshowdata'
+        },
+        link: function(scope, element, attr) {
+
+          console.log('data compiled from php', scope.slideshowdata)
+        },
+        controller: function($scope){
+
+          $scope.slideshowdata.settings.width = 'full';
+          $scope.resultblob = JSON.stringify($scope.slideshowdata);
+        }
+    };
+  }]);
+  </code></pre> 
+
+  <h4>Data to save: {{resultblob}}</h4>
+</div>

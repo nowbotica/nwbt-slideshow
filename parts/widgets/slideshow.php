@@ -271,7 +271,15 @@ function tz_slideshow_field_pill_cb( $args ) {
 	 // get the value of the setting we've registered with register_setting()
 	 $options = get_option( 'wporg_options' );
 	 // output the field
+	 // $mock = "{settings: {width:'contained', show_captions:true}, slides:[{image_id:734, caption:'Slide One'},{image_id:735, caption:'Slide Two'}]}"; 
+	 $mock = '{"settings": {"width":"contained", "show_captions":true}, "slides":[{"image_id":734, "caption":"Slide One"},{"image_id":735, "caption":"Slide Two"}]}'; 
+	 // echo 'echo $mock: '.$mock;
 	 ?>
+
+	 <section ng-app="TzSliderConfigApp">
+	 	<tz-edit-slideshow slideshowdata='{"settings": {"width":"contained", "show_captions":true}, "slides":[{"image_id":734, "caption":"Slide One"},{"image_id":735, "caption":"Slide Two"}]}'></tz-edit-slideshow>
+	 	
+	 </section>
 	 <select id="<?php echo esc_attr( $args['label_for'] ); ?>"
 	 data-custom="<?php echo esc_attr( $args['wporg_custom_data'] ); ?>"
 	 name="wporg_options[<?php echo esc_attr( $args['label_for'] ); ?>]"

@@ -17,13 +17,21 @@ console.log(TzSliderConfigApp)
 TzSliderConfigApp.directive('tzEditSlideshow', ['$parse', function($parse){
     return {
         replace: true,
-        templateUrl: tzSliderPartialsPath+'/config-template.html'
-        // scope: {
-          // reportid: '@',
-          // pdf: '@'
-        // },
-        // link: function(scope, element, attr) {
-        // }
+        templateUrl: tzSliderPartialsPath+'/config-template.html',
+        scope: {
+          slideshowdata: '=slideshowdata'
+        },
+        link: function(scope, element, attr) {
+        	console.log('data compiled from php', scope.slideshowdata)
+
+        	// scope.resultblob = scope.slideshowdata
+        	
+        },
+        controller: function($scope){
+        	// console.log
+        	$scope.slideshowdata.settings.width = 'full'
+        	$scope.resultblob = JSON.stringify($scope.slideshowdata);
+        }
     };
 }]);
 
