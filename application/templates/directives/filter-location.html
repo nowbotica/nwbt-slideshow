@@ -1,0 +1,11 @@
+<div class="choose-this">
+
+  	<select id="#erer"
+    	ng-model="filter.location"
+      	ng-options="choice.value as choice.name for choice in choices"
+   		ng-change="applyFilter(filter.location)">
+
+   	</select>
+
+  <i class="fa fa-chevron-down" aria-hidden="true"></i>
+</div>
