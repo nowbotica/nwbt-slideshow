@@ -277,14 +277,16 @@ function tz_slideshow_field_pill_cb( $args ) {
 	 ?>
 
 	 <section ng-app="TzSliderConfigApp">
+	 	<!-- <tz-edit-slideshow slideshowdata='{"settings": {"width":"contained", "show_captions":true}, "slides":[{"image_id":734, "caption":"Slide One"},{"image_id":735, "caption":"Slide Two"}]}'></tz-edit-slideshow> -->
 	 	<tz-edit-slideshow slideshowdata='{"settings": {"width":"contained", "show_captions":true}, "slides":[{"image_id":734, "caption":"Slide One"},{"image_id":735, "caption":"Slide Two"}]}'></tz-edit-slideshow>
 	 	
 	 </section>
+	 <?php /*
 	 <select id="<?php echo esc_attr( $args['label_for'] ); ?>"
 	 data-custom="<?php echo esc_attr( $args['wporg_custom_data'] ); ?>"
 	 name="wporg_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
 	 >
-	 <option value="red" <?php echo isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], 'red', false ) ) : ( '' ); ?>>
+	 <!-- <option value="red" <?php echo isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], 'red', false ) ) : ( '' ); ?>> -->
 	 <?php esc_html_e( 'red pill', 'wporg' ); ?>
 	 </option>
 	 <option value="blue" <?php echo isset( $options[ $args['label_for'] ] ) ? ( selected( $options[ $args['label_for'] ], 'blue', false ) ) : ( '' ); ?>>
@@ -297,6 +299,14 @@ function tz_slideshow_field_pill_cb( $args ) {
 	 <p class="description">
 	 <?php esc_html_e( 'You take the red pill and you stay in Wonderland and I show you how deep the rabbit-hole goes.', 'wporg' ); ?>
 	 </p>
+	 */?>
+	 <p><?php echo esc_attr( $args['label_for'] ); ?></p>
+	 <p><?php echo $options[ $args['label_for'] ];?></p>
+	 <input type="text" 
+	 id="<?php echo esc_attr( $args['label_for'] ); ?>"
+	 name="wporg_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
+	 value="<?php echo $options[ $args['label_for'] ];?>"
+	 >
  <?php
 }
 /*
@@ -308,7 +318,7 @@ function tz_slideshow_field_pill_cb( $args ) {
 */
 function tz_slideshow_section_fill_content( $args ) {
  ?>
- <p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Follow the white rabbit.', 'wporg' ); ?></p>
+ <p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Configure your slideshow here.', 'wporg' ); ?></p>
  <?php
 }
  

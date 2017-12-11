@@ -179,3 +179,5 @@ write explaination of sql used in listing query
 
   <h4>Data to save: {{resultblob}}</h4>
 </div>
+
+<p>we now have our <code>do_settings_sections( 'tz-slideshow-options' );</code> to look at. We know this iterates over a number of sections and displays the code for each one</p>
