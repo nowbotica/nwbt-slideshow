@@ -1,6 +1,8 @@
-# MVP Mechanic
+# Engineering Log Book
 
 ## Product Story 
+
+This plugin aims to provide a fast and flexible system for building modern user interfaces to wordpress plugin settings pages. The key feature is the ability to create only a single data node using the wp-settings api and use this to persist a whole object of config changes. 
 
 ### Here we show input and output states of our directive
 
