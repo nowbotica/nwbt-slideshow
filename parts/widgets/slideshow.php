@@ -277,18 +277,21 @@ function tz_slideshow_field_pill_cb( $args ) {
 	 ?>
 
 	 <p><?php echo esc_attr( $args['label_for'] ); ?></p>
-	 <p></p>
+	 <p><?php echo $options[ $args["label_for"] ];?></p>
 	 <section ng-app="TzSliderConfigApp">
 	 	<!-- <tz-edit-slideshow slideshowdata='{"settings": {"width":"contained", "show_captions":true}, "slides":[{"image_id":734, "caption":"Slide One"},{"image_id":735, "caption":"Slide Two"}]}'></tz-edit-slideshow> -->
-	 	<tz-edit-slideshow slideshowdata='<?php echo $options[ $args['label_for'] ];?>'></tz-edit-slideshow>
+	 	<tz-edit-slideshow 
+	 	slideshow-name="wporg_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
+	 	slideshow-id="<?php echo esc_attr( $args['label_for'] ); ?>"
+	 	slideshow-value='<?php echo $options[ $args["label_for"] ];?>'
+	 	></tz-edit-slideshow>
+
+	 	<!-- <?php echo esc_attr( $args['label_for'] ); ?>" -->
 	 	
+	 	<!-- slideshow-name="wporg_options[<?php echo esc_attr( $args['label_for'] ); ?>]" -->
 	 </section>
 	 
-	 <input type="text" 
-	 id="<?php echo esc_attr( $args['label_for'] ); ?>"
-	 name="wporg_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
-	 value='<?php echo $options[ $args['label_for'] ];?>'
-	 >
+
  <?php
 }
 /*

@@ -1,147 +1,6 @@
 * MVP Mechanic
 
 ** Product Story 
-
-Remember Someone | 
-| Ask for their address
-Meet Someone | 
-| Ask for their telephone number
-Write to Someone |
-| Send them your address
-
-Choose your own unforgettable name for them
-
-exclude /-/ include
-
-** Setup
-
-```
-$ mkdir -p /c/project/start.here/wordpress/
-$ cd !$
-$ wget wordpress
-$ 
-$ echo  'alias go="cd /c/project/start.here/wordpress/wp-content/plugins/mvp-mechanic"' >> ~/.bashrc
-```
-
-** Todo
-- Create an seo friendly api or something
-    - https://blog.keras.io/user-experience-design-for-apis.html
-- Migrate to yarn
-    - http://tomasalabes.me/blog/web-development/2017/10/03/Migrating-a-bower-module-to-npm-yarn.html
-- Fix SCSS Build
-- Automatically include mvmp-application-template.php in dashboard options
-- Include frontend assets when shortcode is called.
-- Create Dev build of assets in mvp-mechanic.php
-- //wp_enqueue_style('angular-mighty-datepicker', TZUSYSTEM_URL .  '/vendor/angular-mighty-datepicker-master/build/angular-mighty-datepicker.css', false, '1.0.0', 'all');
-- // wp_enqueue_script( 'moment-js', TZUSYSTEM_URL .  '/vendor/moment-develop/moment.js', array());
-- cookies vs local storage
-
-        //core: those features any mobile/desktop app could benefit of.
-        //components: angular directives and services to support introduced UI components.
-        //gestures: services and directives to handle touches easily.
-        // wp_enqueue_script( 'mobile-angular-ui', TZUSYSTEM_URL . '/vendor/mobile-angular-ui-1.3.4/dist/js/mobile-angular-ui.js', array(
-        //   'jquery', 'angular'
-        // ));
-function snwb_get_user_role( $user = null ) {
-	$user = $user ? new WP_User( $user ) : wp_get_current_user();
-	return $user->roles ? $user->roles[0] : false;
-}
-
-/**
- * Add a widget to the dashboard.
- *
- * This function is hooked into the 'wp_dashboard_setup' action below.
- */
-function ot_add_dashboard_widgets() {
-
-    wp_add_dashboard_widget(
-                 'ot-blog-managment-panel',     // Widget slug.
-                 'Blog Management Panel',       // Title.
-                 'snwb_options_page' // Display function.
-        );  
-}
-add_action( 'wp_dashboard_setup', 'ot_add_dashboard_widgets' );
-
-/**
- * Create the function to output the contents of our Dashboard Widget.
- */
-function ot_dashboard_widget_function() {
-
-    // Display whatever it is you want to show.
-    echo "<h1>Hello World, I'm a great Dashboard Widget</h1>";
-
-
-}
-
-function nowBuild( $atts ) {
-  $a = shortcode_atts( array(
-    'member' => '6',
-    'thing' => 'privateBlog',
-    'epic' => 'moderate'
-  ), $atts );
-  ?>
-  <section class="nowbuild-service {{system.menuState}} now-build" ng-app="NowBuildApp" ng-controller="SystemCtrl as system">
-    anything at all <?= $a['member'];?> <?= $a['thing'];?> 
-    <!-- <ui-view autoscroll="false" ng-if='!isRouteLoading' > -->
-    <!-- </ui-view> -->
-    <!-- <systemloader></systemloader> -->
-    <megaloader member="<?= $a['member'];?>" thing="<?= $a['thing'];?>"></megaloader>
-  </section>
-  <?php
-}
-add_shortcode('nowBuild', 'nowBuild');
-
-setcookie('dfenginekey', $_POST['pass'], $hour);  
-
-
-Notice: Trying to get property of non-object in C:\project\kab\wordpress\wp-content\plugins\mvp-mechanic\parts\Listing.php on line 199
-
-Notice: Undefined index: row_location in C:\project\kab\wordpress\wp-content\plugins\mvp-mechanic\parts\Listing.php on line 199
-
-Notice: Trying to get property of non-object in C:\project\kab\wordpress\wp-content\plugins\mvp-mechanic\parts\Listing.php on line 200
-
-Notice: Undefined index: row_duration in C:\project\kab\wordpress\wp-content\plugins\mvp-mechanic\parts\Listing.php on line 200
-
-Notice: Trying to get property of non-object in C:\project\kab\wordpress\wp-content\plugins\mvp-mechanic\parts\Listing.php on line 201
-
-Notice: Undefined index: row_rating in C:\project\kab\wordpress\wp-content\plugins\mvp-mechanic\parts\Listing.php on line 201
-
-Notice: Trying to get property of non-object in C:\project\kab\wordpress\wp-content\plugins\mvp-mechanic\parts\Listing.php on line 202
-
-Notice: Undefined index: row_cost in C:\project\kab\wordpress\wp-content\plugins\mvp-mechanic\parts\Listing.php on line 202
-
-Notice: Trying to get property of non-object in C:\project\kab\wordpress\wp-content\plugins\mvp-mechanic\parts\Listing.php on line 204
-
-Notice: Undefined index: row_yearCompleted in C:\project\kab\wordpress\wp-content\plugins\mvp-mechanic\parts\Listing.php on line 204
-
-Notice: Trying to get property of non-object in C:\project\kab\wordpress\wp-content\plugins\mvp-mechanic\parts\Listing.php on line 205
-
-Notice: Undefined index: row_designers in C:\project\kab\wordpress\wp-content\plugins\mvp-mechanic\parts\Listing.php on line 205
-
-Notice: Trying to get property of non-object in C:\project\kab\wordpress\wp-content\plugins\mvp-mechanic\parts\Listing.php on line 206
-
-Notice: Undefined index: row_builders in C:\project\kab\wordpress\wp-content\plugins\mvp-mechanic\parts\Listing.php on line 206
-
-Notice: Trying to get property of non-object in C:\project\kab\wordpress\wp-content\plugins\mvp-mechanic\parts\Listing.php on line 207
-
-Notice: Undefined index: row_painters in C:\project\kab\wordpress\wp-content\plugins\mvp-mechanic\parts\Listing.php on line 207
-
-// LOCAL STORAGE TODO
-// MvpmApp.config(function (localStorageServiceProvider) {
-//     localStorageServiceProvider
-//         .setPrefix('MvpMechanicStorage')
-//         .setStorageType('sessionStorage')
-//         .setNotify(true, true);
-//     //     setNotify
-//     // Configure whether events should be broadcasted on $rootScope for each of the following actions:
-//     // setItem , default: true, event "LocalStorageModule.notification.setitem"
-//     // removeItem , default: false, event "LocalStorageModule.notification.removeitem"
-// });
-
-autentication somethint
-
-write explaination of sql used in listing query
-
 <div>
 
   <h2>Here we show input and output states of our directive</h2>
@@ -196,3 +55,93 @@ write explaination of sql used in listing query
 
 <p>[master 117fc17] correctly identifying the option fields from the example select and transferring them to a text input ensuring Update functionality remains intact</p>
 
+<p>now we have our $mock array saved as the value for <code>$options[ $args['label_for']]</code> we can test our component works so far by using the saved value in our angular component</p>
+
+<pre><code>
+<section ng-app="TzSliderConfigApp">
+    <!-- <tz-edit-slideshow slideshowdata='{"settings": {"width":"contained", "show_captions":true}, "slides":[{"image_id":734, "caption":"Slide One"},{"image_id":735, "caption":"Slide Two"}]}'></tz-edit-slideshow> -->
+    <tz-edit-slideshow slideshowdata='<?php echo $options[ $args['label_for'] ];?>'></tz-edit-slideshow>
+    
+</section>
+</code></pre>
+
+<p>Our next problem is that while we can return {{resultblob}} inside our directive template we cannot use to this to update our text input in the existing code. We need to move this code inside the template somewhere. We are looking for something that looks like:</p>
+
+<pre><code>
+  <!-- slideshowdata='<?php echo $options[ $args['label_for'] ];?>' -->
+  <tz-edit-slideshow 
+  slideshow_id="<?php echo esc_attr( $args['label_for'] ); ?>"
+  slideshow_value='<?php echo $options[ $args["label_for"] ];?>'
+  slideshow_name="wporg_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
+  ></tz-edit-slideshow>
+</code></pre>
+
+<p>To avoid intotroducing unnessary error into the fairly confusing angular directive set up, we can start by only changing <code>slideshowdata=""</code> to <code>slideshow_value=""</code> and inside our directive scope object <code>scope: {slideshowdata: '=slideshow_value'}</code>. Hopefully Angularjs will be kind to use and not require switching between camel and hyphenate cases (such as in directive name above).</p>
+
+<h3><code>slideshowdata: '=slideshowValue' === slideshow-value='<?php echo $options[ $args["label_for"] ];?>'</code></h3>
+
+<p>The real beauty of mixing Angularjs with PHP is that php doesn't really care what you do on the clientside so long as when your form submits it can find the correct key value pairs to post. This means we can simply pass the config values stored in the database at run time to our view, make all our changes to the data using Angularjs (or jQuery even if you're being pragmatic) and update these in our directive template. At least I hope we can or my whole morning has gone to waste.</p>
+
+<p>After a little messing about with names for things here are the essential functions from the final plugin</p>
+
+<pre><code>
+
+   // register a new field in the "tz_slideshow_section_fill_content" section, inside the "tz_slideshow" page
+   add_settings_field(
+    'tz_slideshow_field_pill', // (string) (required) String for use in the 'id' attribute of tags. as of WP 4.6 this value is used only internally 
+    // use $args' label_for to populate the id inside the callback
+    __( 'Pill', 'tzSlideshow' ), //(string) (required) Title of the field.
+    'tz_slideshow_field_pill_cb', //(callback) (required) Function that fills the field with the desired inputs as part of the larger form. Passed a single argument, the $args array. Name and id of the input should match the $id given to this function. The function should echo its output.
+    'tz-slideshow-options', //(string) (required) The menu page on which to display this field. Should match $menu_slug from add_theme_page() or from do_settings_sections().
+    'tz-slideshow-settings', //(string) (optional) The section of the settings page in which to show the box (default or a section you added with add_settings_section(), look at the page in the source to see what the existing ones are.)
+    [
+      'label_for' => 'wporg_field_pill',
+      'class' => 'wporg_row',
+      'wporg_custom_data' => 'custom',
+    ] //(array) (optional) Additional arguments that are passed to the $callback function. The 'label_for' key/value pair can be used to format the field title like so: <label for="value">$title</label>.
+   );
+
+
+function tz_slideshow_field_pill_cb( $args ) {
+   // get the value of the setting we've registered with register_setting()
+   $options = get_option( 'wporg_options' );
+   $mock = '{"settings": {"width":"contained", "show_captions":true}, "slides":[{"image_id":734, "caption":"Slide One"},{"image_id":735, "caption":"Slide Two"}]}'; 
+   ?>
+
+   <p><?php echo esc_attr( $args['label_for'] ); ?></p>
+   <p><?php echo $options[ $args["label_for"] ];?></p>
+   <section ng-app="TzSliderConfigApp">
+    <tz-edit-slideshow 
+    slideshow-name="wporg_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
+    slideshow-id="<?php echo esc_attr( $args['label_for'] ); ?>"
+    slideshow-value='<?php echo $options[ $args["label_for"] ];?>'
+    ></tz-edit-slideshow>
+   </section>
+   
+
+ <?php
+}
+
+<!-- config template.html -->
+<div>
+  <input type="text" 
+  id="{{id}}"
+  name="{{name}}"
+  value='{{value}}'
+  >
+  <!-- // note '' around value vs "" -->
+  <h4>ID of field: {{id}}</h4>
+  <h4>Name of field: {{name}}</h4>
+  <h4>Value to save: {{value}}</h4>
+</div>
+
+<!-- tz-slider-config.js -->
+
+</code></pre>
+
+
+** Setup
+
+** Todo
+- migrate to yarn
+- https://torquemag.io/2015/12/creating-javascript-single-page-app-wordpress-dashboard/
