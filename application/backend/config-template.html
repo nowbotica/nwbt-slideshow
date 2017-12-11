@@ -1,9 +1,26 @@
 <div>
 
 
-	<section>
-		<input type="text" ng-model="data.settings.width"></section>
-	</section>
+	<!-- <section> -->
+		<!-- <input type="text" ng-model="data.settings.width"></section> -->
+	<!-- </section> -->
+	<label>
+        <input type="radio" name="project"
+               value="contained" ng-model="data.settings.width" />
+        Contained
+    </label>
+    <label>
+        <input type="radio" name="project"
+               value="full-width" ng-model="data.settings.width" />
+        Full Width
+    </label>
+
+    <div ng-repeat="slide in data.slides">
+    	<label>Image ID</label>
+    	<input type="number" ng-model="slide.image_id">
+    	<label>Caption</label>
+    	<input type="text" ng-model="slide.caption">
+    </div>
 
 	<section><!-- outputs the required markup to save using wordpress settings api -->
 	<input type="text" 

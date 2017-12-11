@@ -1,6 +1,8 @@
 * MVP Mechanic
 
 ** Product Story 
+
+```
 <div>
 
   <h2>Here we show input and output states of our directive</h2>
@@ -139,9 +141,39 @@ function tz_slideshow_field_pill_cb( $args ) {
 
 </code></pre>
 
+<p>In the next stage of the build we want to build an actual set of ui elements to manipulate our data in a logical way. Starting by recreating the simple red pill blue pill radio options on the original php code to update the settings field we get</p>
+<code><pre>
+  <label>
+        <input type="radio" name="project"
+               value="contained" ng-model="data.settings.width" />
+        Contained
+    </label>
+    <label>
+        <input type="radio" name="project"
+               value="full-width" ng-model="data.settings.width" />
+        Full Width
+    </label>
+</pre></code>
+
+<p>Our next section uses ng-repeat to display slides.</p>
+
+<pre><code>
+    <div ng-repeat="slide in data.slides">
+      <label>Image ID</label>
+      <input type="number" ng-model="slide.image_id">
+      <label>Caption</label>
+      <input type="text" ng-model="slide.caption">
+    </div>
+</code></pre>
+
+<p>Hopefully by trying it out on your own system you can how this little proof of concept apps provides a simple terse and flexible way to add additional config options to your wordpress settings pages.</p>
+
+
 
 ** Setup
 
 ** Todo
 - migrate to yarn
 - https://torquemag.io/2015/12/creating-javascript-single-page-app-wordpress-dashboard/
+```
+
