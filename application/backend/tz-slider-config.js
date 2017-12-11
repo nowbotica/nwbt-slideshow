@@ -34,6 +34,3 @@ TzSliderConfigApp.directive('tzEditSlideshow', ['$parse', function($parse){
         }
     };
 }]);
-
-console.log('here')
-

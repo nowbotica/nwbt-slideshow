@@ -126,7 +126,6 @@ Notice: Trying to get property of non-object in C:\project\kab\wordpress\wp-cont
 
 Notice: Undefined index: row_painters in C:\project\kab\wordpress\wp-content\plugins\mvp-mechanic\parts\Listing.php on line 207
 
-
 // LOCAL STORAGE TODO
 // MvpmApp.config(function (localStorageServiceProvider) {
 //     localStorageServiceProvider
@@ -143,8 +142,8 @@ autentication somethint
 
 write explaination of sql used in listing query
 
-
 <div>
+
   <h2>Here we show input and output states of our directive</h2>
 
   <p>Using php to inject a string into the directive is helpful for this use case of Angularjs. Our aim is to avoid the maintaince overhead of setting up each data node required by our widget using the brittle and complicated wp_settings api.</p>
@@ -154,7 +153,6 @@ write explaination of sql used in listing query
   <p>We use angulars '=string' as our scope datatype <code> tz-edit-slideshow slideshowdata='< ?= echo $mock; ?>'></tz-edit-slideshow</code> meaning that when the directive compiles scope.slideshowdata will be assigned the value stored in our $mock on the php side.</p>
 
   <p>Finally we output to our config-template.html <code><h4>Data to save: {{resultblob}}</h4></code> by stringifying our local javascript object in JSON and returning this to the view. Notice in our controller function we have changed one of the options in our mock data object and we can see this change in the resultant template.</p> 
-
 
   <pre><code>
   TzSliderConfigApp.directive('tzEditSlideshow', ['$parse', function($parse){
@@ -178,6 +176,23 @@ write explaination of sql used in listing query
   </code></pre> 
 
   <h4>Data to save: {{resultblob}}</h4>
+
 </div>
 
-<p>we now have our <code>do_settings_sections( 'tz-slideshow-options' );</code> to look at. We know this iterates over a number of sections and displays the code for each one</p>
+<p>We now have our <code>do_settings_sections( 'tz-slideshow-options' );</code> to look at. We know this iterates over a number of sections and displays the code for each one. The example had already set a field using a more complex select option. We only a basic text input for our functionality. This could be hidden in the final build but allows to easily see that our angular code is updating the scope.</p>
+
+<p>To test that everything works as it should do, we are going to paste our $mock object into the text field as plain text. If you have been following the example your pill colour will be replaced by a string representation of JavaScriptObject Notion</p>
+
+<p>to avoid errors do note that <code>value='<?php echo $options[ $args['label_for'] ];?>'</code> we use single quote to define out html object since the compiled page will contain double quotes inside the value</p>
+
+<pre><code>
+  <?php echo esc_attr( $args['label_for'] ); ?></p>
+   <p><?php echo $options[ $args['label_for'] ];?></p>
+   <input type="text" 
+   id="<?php echo esc_attr( $args['label_for'] ); ?>"
+   name="wporg_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
+   value="<?php echo $options[ $args['label_for'] ];?>"</p>
+</code></pre>
+
+<p>[master 117fc17] correctly identifying the option fields from the example select and transferring them to a text input ensuring Update functionality remains intact</p>
+
