@@ -1,11 +1,19 @@
 <div>
+
+
+	<section>
+		<input type="text" ng-model="data.settings.width"></section>
+	</section>
+
+	<section><!-- outputs the required markup to save using wordpress settings api -->
 	<input type="text" 
 	id="{{id}}"
 	name="{{name}}"
-	value='{{value}}'
-	>
-	<!-- // note '' around value vs "" -->
+	value='{{data}}'
+	><!-- // note '"{{value}}"' around value vs "{{value}}" or '{{value}}' -->
 	<h4>ID of field: {{id}}</h4>
 	<h4>Name of field: {{name}}</h4>
-	<h4>Value to save: {{value}}</h4>
+	<h4>Name of field: {{data}}</h4>
+	</section>
+	
 </div>

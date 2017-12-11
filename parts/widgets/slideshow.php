@@ -270,26 +270,20 @@ function tz_slideshow_options_page_html() {
 function tz_slideshow_field_pill_cb( $args ) {
 	 // get the value of the setting we've registered with register_setting()
 	 $options = get_option( 'wporg_options' );
-	 // output the field
-	 // $mock = "{settings: {width:'contained', show_captions:true}, slides:[{image_id:734, caption:'Slide One'},{image_id:735, caption:'Slide Two'}]}"; 
 	 $mock = '{"settings": {"width":"contained", "show_captions":true}, "slides":[{"image_id":734, "caption":"Slide One"},{"image_id":735, "caption":"Slide Two"}]}'; 
-	 // echo 'echo $mock: '.$mock;
 	 ?>
 
 	 <p><?php echo esc_attr( $args['label_for'] ); ?></p>
 	 <p><?php echo $options[ $args["label_for"] ];?></p>
 	 <section ng-app="TzSliderConfigApp">
-	 	<!-- <tz-edit-slideshow slideshowdata='{"settings": {"width":"contained", "show_captions":true}, "slides":[{"image_id":734, "caption":"Slide One"},{"image_id":735, "caption":"Slide Two"}]}'></tz-edit-slideshow> -->
 	 	<tz-edit-slideshow 
 	 	slideshow-name="wporg_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
 	 	slideshow-id="<?php echo esc_attr( $args['label_for'] ); ?>"
 	 	slideshow-value='<?php echo $options[ $args["label_for"] ];?>'
 	 	></tz-edit-slideshow>
-
-	 	<!-- <?php echo esc_attr( $args['label_for'] ); ?>" -->
-	 	
-	 	<!-- slideshow-name="wporg_options[<?php echo esc_attr( $args['label_for'] ); ?>]" -->
 	 </section>
+	 	<!-- slideshow-value='{"settings": {"width":"contained", "show_captions":true}, "slides":[{"image_id":734, "caption":"Slide One"},{"image_id":735, "caption":"Slide Two"}]}' -->
+	 <!-- {"settings": {"width":"contained", "show_captions":true}, "slides":[{"image_id":734, "caption":"Slide One"},{"image_id":735, "caption":"Slide Two"}]} -->
 	 
 
  <?php

@@ -28,7 +28,7 @@ TzSliderConfigApp.directive('tzEditSlideshow', ['$parse', function($parse){
         controller: function($scope){
 
         	$scope.data.settings.width = 'fully functional';
-        	$scope.value = JSON.stringify($scope.data);
+        	// $scope.value = $scope.data //JSON.stringify($scope.data);
         
         }
     };
