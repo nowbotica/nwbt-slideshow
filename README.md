@@ -167,8 +167,37 @@ function tz_slideshow_field_pill_cb( $args ) {
 </code></pre>
 
 <p>Hopefully by trying it out on your own system you can how this little proof of concept apps provides a simple terse and flexible way to add additional config options to your wordpress settings pages.</p>
+<code>
+git commit -m "proof of concept"
+[master 1d5bc30] proof of concept
+2 files changed, 53 insertions(+), 4 deletions(-)
+</code>
 
+<p>We can make it more useful by added the functionality to create new slides and delete unwanted slides</p>
 
+<code><pre>
+<button class="button" ng-click="addSlide()">Add Slide</button>
+controller: function($scope){
+
+    $scope.addSlide = function(){
+      $scope.data.slides.push({"image_id": 1, "caption":"change caption" })
+    }
+</code></pre>
+
+<code><pre>
+
+<div ng-repeat="slide in data.slides track by $index">
+  <label>Image ID</label>
+  <input type="number" ng-model="slide.image_id">
+  <label>Caption</label>
+  <input type="text" ng-model="slide.caption">
+  <a class="button" ng-click="removeSlide($index)">Add Slide</a>
+</div>
+controller: function($scope){
+  $scope.removeSlide = function(index){
+    $scope.data.slides.splice(index, 1)
+  }
+</code></pre>
 
 ** Setup
 

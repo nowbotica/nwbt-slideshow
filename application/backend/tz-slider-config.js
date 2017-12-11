@@ -27,9 +27,14 @@ TzSliderConfigApp.directive('tzEditSlideshow', ['$parse', function($parse){
         },
         controller: function($scope){
 
-        	$scope.data.settings.width = 'fully functional';
-        	// $scope.value = $scope.data //JSON.stringify($scope.data);
-        
+        	$scope.addSlide = function(){
+        		$scope.data.slides.push({"image_id": 1, "caption":"change caption" })
+        	}
+        	$scope.removeSlide = function(index){
+        		$scope.data.slides.splice(index, 1)
+        	}
+
+        	// $scope.value = $scope.data //JSON.stringify($scope.data);        
         }
     };
 }]);

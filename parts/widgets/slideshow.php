@@ -275,6 +275,7 @@ function tz_slideshow_field_pill_cb( $args ) {
 
 	 <p><?php echo esc_attr( $args['label_for'] ); ?></p>
 	 <p><?php echo $options[ $args["label_for"] ];?></p>
+	 
 	 <section ng-app="TzSliderConfigApp">
 	 	<tz-edit-slideshow 
 	 	slideshow-name="wporg_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
@@ -282,6 +283,7 @@ function tz_slideshow_field_pill_cb( $args ) {
 	 	slideshow-value='<?php echo $options[ $args["label_for"] ];?>'
 	 	></tz-edit-slideshow>
 	 </section>
+
 	 	<!-- slideshow-value='{"settings": {"width":"contained", "show_captions":true}, "slides":[{"image_id":734, "caption":"Slide One"},{"image_id":735, "caption":"Slide Two"}]}' -->
 	 <!-- {"settings": {"width":"contained", "show_captions":true}, "slides":[{"image_id":734, "caption":"Slide One"},{"image_id":735, "caption":"Slide Two"}]} -->
 	 

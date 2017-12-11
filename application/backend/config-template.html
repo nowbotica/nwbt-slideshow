@@ -15,12 +15,15 @@
         Full Width
     </label>
 
-    <div ng-repeat="slide in data.slides">
-    	<label>Image ID</label>
-    	<input type="number" ng-model="slide.image_id">
-    	<label>Caption</label>
-    	<input type="text" ng-model="slide.caption">
-    </div>
+
+	<div ng-repeat="slide in data.slides track by $index">
+	  <label>Image ID</label>
+	  <input type="number" ng-model="slide.image_id">
+	  <label>Caption</label>
+	  <input type="text" ng-model="slide.caption">
+	  <a class="button" ng-click="removeSlide($index)">remove</a>
+	</div>
+    <a class="button" ng-click="addSlide()">Add Slide</a>
 
 	<section><!-- outputs the required markup to save using wordpress settings api -->
 	<input type="text" 
