@@ -39,7 +39,6 @@ function tz_slideshow_load_widget() {
 }
 add_action( 'widgets_init', 'tz_slideshow_load_widget' );
 
-
 // Creating the widget 
 class tz_slideshow_widget extends WP_Widget {
  
@@ -139,25 +138,20 @@ class tz_slideshow_widget extends WP_Widget {
  
 
 
-/**
- * register our wporg_options_page to the admin_menu action hook
- */
-add_action( 'admin_menu', 'tz_slideshow_admin_menu' );
 
-function tz_slideshow_admin_menu() {
-    /* Register our plugin page */
-    $page = add_menu_page( 
-    // 'edit.php', // The parent page of this menu
-    	__( 'TZ Slideshow', 'tzSlideshow' ), // The Menu Title
-        __( 'TZ Slideshow Options', 'tzSlideshow' ), // The Page title
-        'manage_options', // The capability required for access to this item
-        'tz-slideshow-options', // the slug to use for the page in the URL
-        'tz_slideshow_options_page_html' // The function to call to render the page
-                           );
+add_action( 'admin_menu', 'nwbt_tz_add_admin_menu' );
+add_action( 'admin_init', 'nwbt_tz_setting_init' );
+
+
+function nwbt_tz_add_admin_menu(  ) { 
+
+	$page = add_menu_page( 'nwbt_tz_slideshow', 'nwbt_tz_slideshow', 'manage_options', 'nwbt_tz_slideshow', 'nwbt_tz_options_page' );
 
     /* Using registered $page handle to hook script load */
     add_action('admin_print_scripts-' . $page, 'tz_slideshow_load_admin_scripts');
 }
+
+
 
 /*
 * Register our angular app
@@ -181,125 +175,112 @@ function tz_slideshow_load_admin_scripts() {
         ), '', true);
 }
 
-/**
- * custom option and settings
- */
-function tz_slideshow_settings_init() {
-	// register a new setting for "wporg" page
-	register_setting( 'tz-slideshow-options', 'wporg_options' );
-	 
-	// register a new section in the "tz-slideshow" page
+
+function nwbt_tz_setting_init(  ) { 
+
+	register_setting( 'pluginPage', 'nwbt_tz_setting' );
+
 	add_settings_section(
-		'tz-slideshow-settings', //(string) (required) String for use in the 'id' attribute of tags.
-	 	__( 'The Matrix has you.', 'tzSlideshow' ), //(string) (required) Title of the section.
-	 	'tz_slideshow_section_fill_content', //(string) (required) Function that fills the section with the desired content. The function should echo its output.
-	 	'tz-slideshow-options' //(string) (required) The menu page on which to display this section. Should match $menu_slug from Function Reference/add theme page if you are adding a section to an 'Appearance' page, or Function Reference/add options page if you are adding a section to a 'Settings' page.
-	 );
- 
-	 // register a new field in the "tz_slideshow_section_fill_content" section, inside the "tz_slideshow" page
-	 add_settings_field(
-		'tz_slideshow_field_pill', // (string) (required) String for use in the 'id' attribute of tags. as of WP 4.6 this value is used only internally 
-	 	// use $args' label_for to populate the id inside the callback
-	 	__( 'Pill', 'tzSlideshow' ), //(string) (required) Title of the field.
-	 	'tz_slideshow_field_pill_cb', //(callback) (required) Function that fills the field with the desired inputs as part of the larger form. Passed a single argument, the $args array. Name and id of the input should match the $id given to this function. The function should echo its output.
-	 	'tz-slideshow-options', //(string) (required) The menu page on which to display this field. Should match $menu_slug from add_theme_page() or from do_settings_sections().
-	 	'tz-slideshow-settings', //(string) (optional) The section of the settings page in which to show the box (default or a section you added with add_settings_section(), look at the page in the source to see what the existing ones are.)
-	 	[
-	 		'label_for' => 'wporg_field_pill',
-	 		'class' => 'wporg_row',
-	 		'wporg_custom_data' => 'custom',
-	 	] //(array) (optional) Additional arguments that are passed to the $callback function. The 'label_for' key/value pair can be used to format the field title like so: <label for="value">$title</label>.
-	 );
-}
- 
-/**
- * register our wporg_settings_init to the admin_init action hook
- */
-add_action( 'admin_init', 'tz_slideshow_settings_init' );
+		'nwbt_tz_pluginPage_section', 
+		__( 'Your section description', 'nwbtTz' ), 
+		'nwbt_tz_setting_section_callback', 
+		'pluginPage'
+	);
 
-/**
- * top level menu:
- * callback functions
- */
-function tz_slideshow_options_page_html() {
- 	// check user capabilities
-	 if ( ! current_user_can( 'manage_options' ) ) {
-	 	return;
-	 }
-	 
-	 // add error/update messages
-	 
-	 // check if the user have submitted the settings
-	 // wordpress will add the "settings-updated" $_GET parameter to the url
-	 if ( isset( $_GET['settings-updated'] ) ) {
-	 // add settings saved message with the class of "updated"
-	 	// add_settings_error( 'wporg_messages', 'wporg_message', __( 'Settings Saved', 'wporg' ), 'updated' );
-	 }
-	 
-	 // show error/update messages
-	 // settings_errors( 'wporg_messages' );
-	 ?>
-	 <div class="wrap">
-	 <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-	 <form action="options.php" method="post">
-	 <?php
-	 // output security fields for the registered setting "wporg"
-	 settings_fields( 'tz-slideshow-options' );
-	 // output setting sections and their fields
-	 // (sections are registered for "wporg", each field is registered to a specific section)
-	 do_settings_sections( 'tz-slideshow-options' );
-	 // output save settings button
-	 submit_button( 'Save Settings' );
-	 ?>
-	 </form>
-	 </div>
- <?php
+	add_settings_field( 
+		'nwbt_tz_textarea_field_0', 
+		__( 'Settings field description', 'nwbtTz' ), 
+		'nwbt_tz_textarea_field_0_render', 
+		'pluginPage', 
+		'nwbt_tz_pluginPage_section' 
+	);
+
+
 }
 
-/*
- * pill field cb
- *
- * field callbacks can accept an $args parameter, which is an array.
- * $args is defined at the add_settings_field() function.
- * wordpress has magic interaction with the following keys: label_for, class.
- * the "label_for" key value is used for the "for" attribute of the <label>.
- * the "class" key value is used for the "class" attribute of the <tr> containing the field.
- * you can add custom key value pairs to be used inside your callbacks.
-*/
 
-function tz_slideshow_field_pill_cb( $args ) {
-	 // get the value of the setting we've registered with register_setting()
-	 $options = get_option( 'wporg_options' );
-	 $mock = '{"settings": {"width":"contained", "show_captions":true}, "slides":[{"image_id":734, "caption":"Slide One"},{"image_id":735, "caption":"Slide Two"}]}'; 
-	 ?>
+function nwbt_tz_textarea_field_0_render(  ) { 
 
-	 <p><?php echo esc_attr( $args['label_for'] ); ?></p>
-	 <p><?php echo $options[ $args["label_for"] ];?></p>
-	 
-	 <section ng-app="TzSliderConfigApp">
+	$options = get_option( 'nwbt_tz_setting' );
+	if(!$options){
+		$options['nwbt_tz_textarea_field_0'] = '{"settings": {"width":"contained", "show_captions":true}, "slides":[{"image_id":734, "caption":"Slide One"},{"image_id":735, "caption":"Slide Two"}]}' ;
+
+	}
+	?>
+	<section ng-app="TzSliderConfigApp">
 	 	<tz-edit-slideshow 
-	 	slideshow-name="wporg_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
-	 	slideshow-id="<?php echo esc_attr( $args['label_for'] ); ?>"
-	 	slideshow-value='<?php echo $options[ $args["label_for"] ];?>'
+	 	slideshow-name="nwbt_tz_setting[nwbt_tz_textarea_field_0]"
+	 	slideshow-id="nwbt_tz_setting[nwbt_tz_textarea_field_0]"
+	 	slideshow-value='<?php echo $options['nwbt_tz_textarea_field_0'];?>'
 	 	></tz-edit-slideshow>
 	 </section>
+	<?php /*
+	<textarea cols='40' rows='5' name='nwbt_tz_setting[nwbt_tz_textarea_field_0]'> 
+		<?php echo $options['nwbt_tz_textarea_field_0']; ?>
+ 	</textarea>
+	<?php */
 
-	 	<!-- slideshow-value='{"settings": {"width":"contained", "show_captions":true}, "slides":[{"image_id":734, "caption":"Slide One"},{"image_id":735, "caption":"Slide Two"}]}' -->
-	 <!-- {"settings": {"width":"contained", "show_captions":true}, "slides":[{"image_id":734, "caption":"Slide One"},{"image_id":735, "caption":"Slide Two"}]} -->
-	 
+}
 
- <?php
+
+function nwbt_tz_setting_section_callback(  ) { 
+
+	echo __( 'This section description', 'nwbtTz' );
+
 }
-/*
-* developers section cb
-*
-* section callbacks can accept an $args parameter, which is an array.
-* $args have the following keys defined: title, id, callback.
-* the values are defined at the add_settings_section() function.
-*/
-function tz_slideshow_section_fill_content( $args ) {
- ?>
- <p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Configure your slideshow here.', 'wporg' ); ?></p>
- <?php
+
+
+function nwbt_tz_options_page(  ) { 
+
+	?>
+	<form action='options.php' method='post'>
+
+		<h2>nwbt_tz_slideshow</h2>
+
+		<?php
+		settings_fields( 'pluginPage' );
+		do_settings_sections( 'pluginPage' );
+		submit_button();
+		?>
+
+	</form>
+	<?php
+
 }
+
+
+/**
+  * Creates shortcode to display main application
+  *
+  */
+function nwbtSlideshow(  ) {
+
+  $settings = get_option( 'nwbt_tz_setting' );
+  var_dump($settings)
+  
+  ?>
+
+  	<?php if($select_display == 'contained'):?><div class="container"><?php endif; ?>
+		<?php if($slides):?>
+        <div class="slick-banner">
+			<?php foreach ($slides as $key => $value): ?>
+            <article class="slick-banner-slide">
+                <div class="wrap">
+             	<?php echo wp_get_attachment_image( $slides[$key] , 'full'); ?>
+                </div>
+            </article>
+			<?php endforeach ?>
+        </div>
+        <?php endif; ?>
+
+		<?php if($select_display == 'contained'):?></div><?php endif; ?>
+
+
+      <ui-view autoscroll="false" ng-if='!isRouteLoading'></ui-view>
+
+  <?php
+}
+add_shortcode('nwbtSlideshow', 'nwbtSlideshow');
+
+
  

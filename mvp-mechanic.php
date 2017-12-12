@@ -34,18 +34,6 @@ include( MVPMSYSTEM . '/parts/widgets/slideshow.php');
  *
  */
 
-/**
-  * Creates shortcode to display main application
-  *
-  */
-function mvpmApp(  ) {
-  ?>
-
-      <ui-view autoscroll="false" ng-if='!isRouteLoading'></ui-view>
-
-  <?php
-}
-add_shortcode('mvpmApp', 'mvpmApp');
 
 /**
  * Includes js when shortcode called - kinda slow
