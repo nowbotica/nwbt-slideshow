@@ -255,28 +255,33 @@ function nwbt_tz_options_page(  ) {
   */
 function nwbtSlideshow(  ) {
 
-  $settings = get_option( 'nwbt_tz_setting' );
-  var_dump($settings)
+  $options = get_option( 'nwbt_tz_setting' );
+  $s = json_decode($options['nwbt_tz_textarea_field_0']);
+  $settings = $s->settings;
+  $slides = $s->slides;
+  // var_dump($slides);
   
   ?>
 
-  	<?php if($select_display == 'contained'):?><div class="container"><?php endif; ?>
+  	<?php if($settings->width == 'contained'):?><div class="container"><?php endif; ?>
 		<?php if($slides):?>
         <div class="slick-banner">
 			<?php foreach ($slides as $key => $value): ?>
+				<?php //echo $slides[$key]->image_id;?>
             <article class="slick-banner-slide">
                 <div class="wrap">
-             	<?php echo wp_get_attachment_image( $slides[$key] , 'full'); ?>
+             	<?php echo wp_get_attachment_image( $slides[$key]->image_id , 'full'); ?>
+				<?php //echo $slides[$key]->caption;?>
                 </div>
             </article>
 			<?php endforeach ?>
         </div>
         <?php endif; ?>
 
-		<?php if($select_display == 'contained'):?></div><?php endif; ?>
+		<?php if($settings->width == 'contained'):?></div><?php endif; ?>
 
 
-      <ui-view autoscroll="false" ng-if='!isRouteLoading'></ui-view>
+      <!-- <ui-view autoscroll="false" ng-if='!isRouteLoading'></ui-view> -->
 
   <?php
 }
