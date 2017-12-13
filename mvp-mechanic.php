@@ -45,7 +45,10 @@ include( MVPMSYSTEM . '/parts/widgets/slideshow.php');
 //    preg_match('/'.$pattern.'/s', $posts[0]->post_content, $matches);
 //    if (is_array($matches) && $matches[2] == 'mvmpApp') {
         //shortcode is being used
-        // add_action('wp_enqueue_scripts','mvmpApp_css');
+        add_action('wp_enqueue_scripts','mvmpApp_css');
+        //         wp_enqueue_script( 'slick-js', MVPMSYSTEM_URL .  'application/dependencies/slick/slick.js', array(), 'jquery', true);
+
+        // wp_enqueue_script( 'tz-slider-js', MVPMSYSTEM_URL .  'application/frontend/tz-slider.js', array(), 'slick-js', true); 
         // add_action('wp_enqueue_scripts','mvmpApp_scripts');
 //    }
 //}
@@ -64,6 +67,9 @@ if ( ! function_exists( 'mvmpApp_css' ) ) {
 
         // font-awesome.min.css: icon library
         wp_enqueue_style( 'mvmpApp_system', MVPMSYSTEM_URL . '/application/mvpm-system.css', false, '1.0.0', 'all');
+         wp_enqueue_script( 'slick-js', MVPMSYSTEM_URL .  'application/dependencies/slick/slick.js', array(), 'jquery', true);
+
+        wp_enqueue_script( 'tz-slider-js', MVPMSYSTEM_URL .  'application/frontend/tz-slider.js', array(), 'slick-js', true); 
 
     }
 

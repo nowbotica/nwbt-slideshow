@@ -24,13 +24,13 @@ if ( ! function_exists( 'tz_slideshow_scripts' ) ) {
      *  loads the applications js dependancies and application files
      */
     function tz_slideshow_scripts() {
+        // wp_enqueue_script( 'slick-js', MVPMSYSTEM_URL .  'application/dependencies/slick/slick.js', array(), 'jquery', true);
 
-        wp_enqueue_script( 'slick-js', MVPMSYSTEM_URL .  'application/dependencies/slick/slick.js', array(), 'jquery', true);
-        wp_enqueue_script( 'tz-slider-js', MVPMSYSTEM_URL .  'application/frontend/tz-slider.js', array(), 'slick-js', true); 
+        // wp_enqueue_script( 'tz-slider-js', MVPMSYSTEM_URL .  'application/frontend/tz-slider.js', array(), 'slick-js', true); 
     }
 }
-add_action( 'widgets_init', 'tz_slideshow_scripts' ); ;
-
+// add_action( 'widgets_init', 'tz_slideshow_scripts' ); ;
+add_action('wp_enqueue_scripts','tz_slideshow_scripts');
 /*
 * Register and load the widget
 */
@@ -136,12 +136,8 @@ class tz_slideshow_widget extends WP_Widget {
 	}
 } // Class wpb_widget ends here
  
-
-
-
 add_action( 'admin_menu', 'nwbt_tz_add_admin_menu' );
 add_action( 'admin_init', 'nwbt_tz_setting_init' );
-
 
 function nwbt_tz_add_admin_menu(  ) { 
 
@@ -150,8 +146,6 @@ function nwbt_tz_add_admin_menu(  ) {
     /* Using registered $page handle to hook script load */
     add_action('admin_print_scripts-' . $page, 'tz_slideshow_load_admin_scripts');
 }
-
-
 
 /*
 * Register our angular app
@@ -175,7 +169,6 @@ function tz_slideshow_load_admin_scripts() {
         ), '', true);
 }
 
-
 function nwbt_tz_setting_init(  ) { 
 
 	register_setting( 'pluginPage', 'nwbt_tz_setting' );
@@ -198,7 +191,6 @@ function nwbt_tz_setting_init(  ) {
 
 }
 
-
 function nwbt_tz_textarea_field_0_render(  ) { 
 
 	$options = get_option( 'nwbt_tz_setting' );
@@ -219,16 +211,13 @@ function nwbt_tz_textarea_field_0_render(  ) {
 		<?php echo $options['nwbt_tz_textarea_field_0']; ?>
  	</textarea>
 	<?php */
-
 }
-
 
 function nwbt_tz_setting_section_callback(  ) { 
 
 	echo __( 'This section description', 'nwbtTz' );
 
 }
-
 
 function nwbt_tz_options_page(  ) { 
 
@@ -255,37 +244,27 @@ function nwbt_tz_options_page(  ) {
   */
 function nwbtSlideshow(  ) {
 
-  $options = get_option( 'nwbt_tz_setting' );
-  $s = json_decode($options['nwbt_tz_textarea_field_0']);
-  $settings = $s->settings;
-  $slides = $s->slides;
-  // var_dump($slides);
-  
-  ?>
-
+	$options = get_option( 'nwbt_tz_setting' );
+  	$s = json_decode($options['nwbt_tz_textarea_field_0']);
+  	$settings = $s->settings;
+  	$slides = $s->slides;
+  	?>
   	<?php if($settings->width == 'contained'):?><div class="container"><?php endif; ?>
 		<?php if($slides):?>
         <div class="slick-banner">
 			<?php foreach ($slides as $key => $value): ?>
-				<?php //echo $slides[$key]->image_id;?>
-            <article class="slick-banner-slide">
-                <div class="wrap">
-             	<?php echo wp_get_attachment_image( $slides[$key]->image_id , 'full'); ?>
-				<?php //echo $slides[$key]->caption;?>
-                </div>
-            </article>
+	            <article class="slick-banner-slide">
+	                <div class="wrap">
+	                	<!-- data-lazy=" -->
+	             		<?php echo wp_get_attachment_image( $slides[$key]->image_id , 'full'); ?>
+					 	<h2><?= $slides[$key]->caption; ?></h2>
+	                </div>
+	            </article>
 			<?php endforeach ?>
         </div>
         <?php endif; ?>
-
-		<?php if($settings->width == 'contained'):?></div><?php endif; ?>
-
-
-      <!-- <ui-view autoscroll="false" ng-if='!isRouteLoading'></ui-view> -->
-
+	<?php if($settings->width == 'contained'):?></div><?php endif; ?>
+    <!-- <ui-view autoscroll="false" ng-if='!isRouteLoading'></ui-view> -->
   <?php
 }
 add_shortcode('nwbtSlideshow', 'nwbtSlideshow');
-
-
- 
